@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:world_clock/pages/home_page.dart';
+import 'package:world_clock/pages/loading.dart';
+import 'package:world_clock/pages/locations.dart';
 
 void main() {
   runApp(const MainApp());
@@ -9,12 +12,14 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      initialRoute: '/',
+      routes: {
+        '/': (context) => Loading(),
+        '/home': (context) => HomePage()
+
+      },
     );
   }
 }
