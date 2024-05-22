@@ -15,9 +15,9 @@ class _HomePageState extends State<HomePage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final args = ModalRoute.of(context)?.settings.arguments;    
+    final args = ModalRoute.of(context)?.settings.arguments;
 
-    if(args != null && args is Map) {
+    if (args != null && args is Map) {
       setState(() {
         data = args;
       });
@@ -29,14 +29,38 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(),
       drawer: Locations(),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(data['location']),
-            Text(data['time']),
-            Text(data['flag']),
-          ],
+      body: SafeArea(
+        child: Center(
+          child: Padding(
+            // TODO: Change this according to the background image
+            padding: const EdgeInsets.fromLTRB(10, 0, 20, 10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  data['flag'],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                    
+                // Location
+                Text(
+                  data['location'],
+                  style: const TextStyle(fontSize: 20, letterSpacing: 2),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                    
+                // Actual Time
+                Text(
+                  data['time'],
+                  style: TextStyle(fontSize: 35, letterSpacing: 2, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

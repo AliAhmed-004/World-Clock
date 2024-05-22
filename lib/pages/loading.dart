@@ -11,7 +11,7 @@ class Loading extends StatefulWidget {
 class _LoadingState extends State<Loading> {
 
   void setupWorldTime() async {
-    WorldTime instance = new WorldTime(location: 'Berlin', flag: 'germany.png', url: 'Europe/Berlin');
+    WorldTime instance = new WorldTime(location: 'Karachi', flag: 'pakistan.png', url: 'Asia/Karachi');
     await instance.getTime();
 
     // sending data to home_screen
