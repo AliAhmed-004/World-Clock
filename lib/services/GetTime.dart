@@ -1,6 +1,8 @@
 import 'package:http/http.dart';
 import 'dart:convert';
 
+import 'package:intl/intl.dart';
+
 class WorldTime {
   // location name for UI
   String? location;
@@ -38,7 +40,10 @@ class WorldTime {
         now = now.add(Duration(hours: int.parse(offset)));
 
         // Setting the time attribute to use in the UI
-        time = now.toString();
+        // Formatting the date to a readable format
+        time = DateFormat.jm().format(now);
+
+
       } else {
         // If the server did not return a 200 OK response,
         // then throw an exception.
