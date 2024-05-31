@@ -24,45 +24,54 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  // set background
+
   @override
   Widget build(BuildContext context) {
+    String bgImage = data['isDayTime'] ? 'Day.png' : 'Night.png';
     return Scaffold(
-      appBar: AppBar(),
-      drawer: Locations(),
-      body: SafeArea(
-        child: Center(
-          child: Padding(
-            // TODO: Change this according to the background image
-            padding: const EdgeInsets.fromLTRB(10, 0, 20, 10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  data['flag'],
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                    
-                // Location
-                Text(
-                  data['location'],
-                  style: const TextStyle(fontSize: 20, letterSpacing: 2),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                    
-                // Actual Time
-                Text(
-                  data['time'],
-                  style: TextStyle(fontSize: 35, letterSpacing: 2, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
+        body: SafeArea(
+            child: Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(image: AssetImage(bgImage), fit: BoxFit.cover),
+      ),
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                data['flag'],
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+
+              // Location
+              Text(
+                data['location'],
+                style: const TextStyle(
+                    fontSize: 35,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 2),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+
+              // Actual Time
+              Text(
+                data['time'],
+                style: const TextStyle(
+                    fontSize: 35,
+                    letterSpacing: 2,
+                    fontWeight: FontWeight.bold),
+              ),
+            ],
           ),
         ),
       ),
-    );
+    )));
   }
 }

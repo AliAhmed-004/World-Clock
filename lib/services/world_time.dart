@@ -16,6 +16,9 @@ class WorldTime {
   // url for the request
   String? url;
 
+  // check if its daytime or not
+  bool? isDayTime;
+
   // constructor
   WorldTime({this.location, this.url, this.flag});
 
@@ -38,6 +41,9 @@ class WorldTime {
         DateTime now = DateTime.parse(dateTime);
 
         now = now.add(Duration(hours: int.parse(offset)));
+
+        // Setting isDayTime property
+        isDayTime = now.hour > 6 && now.hour < 19 ? true : false;
 
         // Setting the time attribute to use in the UI
         // Formatting the date to a readable format
