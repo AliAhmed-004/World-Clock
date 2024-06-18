@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:world_clock/pages/locations.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({super.key});
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -15,20 +14,26 @@ class _HomePageState extends State<HomePage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final args = ModalRoute.of(context)?.settings.arguments;
-
-    if (args != null && args is Map) {
-      setState(() {
-        data = args;
-      });
-    }
   }
 
   // set background
 
   @override
   Widget build(BuildContext context) {
-    String bgImage = data['isDayTime'] ? 'Day.png' : 'Night.png';
+    data = data.isNotEmpty
+        ? data
+        : ModalRoute.of(context)?.settings.arguments as Map;
+
+    String bgImage = (data['isDayTime']) ? 'Day.png' : 'Night.png';
+    Color fontColor = data['isDayTime']
+        ? const Color.fromARGB(255, 43, 43, 43)
+        : Color.fromARGB(255, 229, 229, 229);
+        Color iconColor = data['isDayTime']
+        ? const Color.fromARGB(255, 43, 43, 43)
+        : Color.fromARGB(255, 229, 229, 229);
+
+    String flagImage = data['flag'];
+
     return Scaffold(
         body: SafeArea(
             child: Container(
@@ -41,8 +46,10 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                data['flag'],
+              // Flag
+              CircleAvatar(
+                radius: 50,
+                backgroundImage: AssetImage(flagImage),
               ),
               const SizedBox(
                 height: 10,
@@ -51,7 +58,8 @@ class _HomePageState extends State<HomePage> {
               // Location
               Text(
                 data['location'],
-                style: const TextStyle(
+                style: TextStyle(
+                    color: fontColor,
                     fontSize: 35,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 2),
@@ -63,10 +71,41 @@ class _HomePageState extends State<HomePage> {
               // Actual Time
               Text(
                 data['time'],
-                style: const TextStyle(
+                style: TextStyle(
+                  color: fontColor,
                     fontSize: 35,
                     letterSpacing: 2,
                     fontWeight: FontWeight.bold),
+              ),
+
+              const SizedBox(
+                height: 30,
+              ),
+              // Change Location Button
+              TextButton.icon(
+                onPressed: () async {
+                  dynamic result =
+                      await Navigator.pushNamed(context, '/locations');
+                  setState(() {
+                    data = {
+                      'time': result['time'],
+                      'location': result['location'],
+                      'flag': result['flag'],
+                      'isDatTime': result['isDayTime'],
+                    };
+                  });
+                },
+                label: Text(
+                  'Edit Location',
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: fontColor),
+                ),
+                icon: Icon(
+                  Icons.location_on_outlined,
+                  color: iconColor,
+                ),
               ),
             ],
           ),

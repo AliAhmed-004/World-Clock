@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:world_clock/pages/home_page.dart';
 import 'package:world_clock/pages/loading.dart';
+import 'package:world_clock/pages/locations.dart';
 
 void main() {
   runApp(const MainApp());
@@ -16,8 +17,8 @@ class MainApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const Loading(),
-        '/home': (context) => HomePage()
-
+        '/home': (context) => HomePage(),
+        '/locations': (context) => Locations(),
       },
     );
   }
